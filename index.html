@@ -34,14 +34,17 @@ main{height:100svh;width:100%;overflow-y:auto;scroll-snap-type:y mandatory;overs
 <section class="page"><img class="photo" src="assets/upload_20260906_125932_14.jpg" alt="宝宝粉色公主写真"><div class="shade"></div><div class="copy bottom"><div class="lead">小小的你<br>装满了我们全部的爱</div><div class="small">期待与您共享这份喜悦</div></div></section>
 <section class="page info"><div class="card"><div class="eyebrow" style="color:#a88a5a">YOU ARE INVITED</div><h2 class="title">百日宴</h2><div class="line"></div><div class="field"><div class="label">宴会主角</div><div class="value">丁若滢</div></div><div class="field"><div class="label">日期 · 时间</div><div class="value">2026年10月2日<br>星期五 · 中午 · 11：18</div></div><div class="field"><div class="label">宴会地点</div><div class="value">无锡海景壹号国际大酒店<br>三楼亚特兰蒂斯厅</div></div><div class="note">喜逢若滢百日<br>略备薄宴，恭请光临</div><div class="cta">保存日期 · 共赴喜宴</div></div><div class="credit">百日之喜 · 与爱相约</div></section>
 </main>
-<button class="music" aria-label="背景音乐待添加" title="背景音乐待添加">♫</button>
+<audio id="bgm" preload="metadata" loop src="甜心小宝贝-吴子澜-官方试听.m4a"></audio>
+<button class="music" aria-label="播放背景音乐《甜心小宝贝》" title="播放《甜心小宝贝》">♫</button>
 <div class="dots" aria-hidden="true"></div>
 <script>
 const root=document.querySelector('main'),pages=[...document.querySelectorAll('.page')],dots=document.querySelector('.dots');
 pages.forEach((_,i)=>{const d=document.createElement('i');if(!i)d.className='on';dots.appendChild(d)});
 if(location.hash==='#details') requestAnimationFrame(()=>root.scrollTop=root.scrollHeight);
 const ds=[...dots.children];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=pages.indexOf(e.target);ds.forEach((d,n)=>d.classList.toggle('on',n===i))}}),{root,threshold:.65});pages.forEach(p=>io.observe(p));
-document.querySelector('.music').onclick=e=>{e.currentTarget.textContent=e.currentTarget.textContent==='♫'?'♩':'♫';e.currentTarget.title='请提供音乐后即可播放'};
+const bgm=document.querySelector('#bgm'),music=document.querySelector('.music');
+music.onclick=async()=>{try{if(bgm.paused){await bgm.play();music.textContent='Ⅱ';music.title='暂停《甜心小宝贝》'}else{bgm.pause();music.textContent='♫';music.title='播放《甜心小宝贝》'}}catch(e){music.textContent='♫';music.title='点击播放《甜心小宝贝》'}};
+document.addEventListener('WeixinJSBridgeReady',()=>bgm.play().then(()=>{music.textContent='Ⅱ'}).catch(()=>{}),{once:true});
 </script>
 </body>
 </html>
